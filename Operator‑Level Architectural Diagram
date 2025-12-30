@@ -2,7 +2,7 @@
 flowchart TD
 
     %% High-level pipeline
-    A[Parsed_Logical_Plan] --> B[Analyzed_Logical_Plan]
+    A[Parsed_Logical_Plan] -> B[Analyzed_Logical_Plan]
     B -> C[Optimized_Logical_Plan]
     C -> D[Physical_Plan]
 
