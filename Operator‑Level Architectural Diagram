@@ -1,0 +1,32 @@
+```mermaid
+flowchart TD
+
+    subgraph Parsed
+        P1["Project\nCOUNT(*), SUM(total_population)"]
+        P2["Aggregate\nBY continent"]
+        P3["UnresolvedRelation\npopulation"]
+        P1 --> P2 --> P3
+    end
+
+    subgraph Analyzed
+        A1["Project\ncontinent#12, count#45L, sum#46L"]
+        A2["Aggregate\ncount(1), sum(total_population#13)"]
+        A3["Relation\npopulation[...]"]
+        A1 --> A2 --> A3
+    end
+
+    subgraph Optimized
+        O1["Aggregate\ncount(1), sum(total_population)"]
+        O2["Project\ncontinent, total_population"]
+        O3["Relation\npopulation"]
+        O1 --> O2 --> O3
+    end
+
+    subgraph Physical
+        X1["Final HashAggregate"]
+        X2["Shuffle\nhashpartition(continent)"]
+        X3["Partial HashAggregate"]
+        X4["Scan parquet population"]
+        X1 --> X2 --> X3 --> X4
+    end
+```
