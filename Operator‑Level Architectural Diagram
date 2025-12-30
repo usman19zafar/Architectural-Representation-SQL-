@@ -1,6 +1,9 @@
 ```mermaid
 flowchart TD
 
+    %% High-level pipeline
+    Parsed --> Analyzed --> Optimized --> Physical
+
     subgraph Parsed
         P1["Project\nCOUNT(*), SUM(total_population)"]
         P2["Aggregate\nBY continent"]
