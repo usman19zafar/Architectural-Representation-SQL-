@@ -2,33 +2,33 @@
 flowchart TD
 
     %% High-level pipeline
-    A[Parsed Logical Plan] --> B[Analyzed Logical Plan]
-    B --> C[Optimized Logical Plan]
-    C --> D[Physical Plan]
+    A[Parsed_Logical_Plan] --> B[Analyzed_Logical_Plan]
+    B -> C[Optimized_Logical_Plan]
+    C -> D[Physical_Plan]
 
     %% Parsed
-    subgraph Parsed Logical Plan
+    subgraph Parsed_Logical_Plan
         P1["Project: COUNT(*), SUM(total_population)"]
         P2["Aggregate: BY continent"]
         P3["UnresolvedRelation: population"]
     end
 
     %% Analyzed
-    subgraph Analyzed Logical Plan
+    subgraph Analyzed_Logical_Plan
         A1["Project: continent#12, count#45L, sum#46L"]
         A2["Aggregate: count(1), sum(total_population#13)"]
         A3["Relation: population[...]"]
     end
 
     %% Optimized
-    subgraph Optimized Logical Plan
+    subgraph Optimized_Logical_Plan
         O1["Aggregate: count(1), sum(total_population)"]
         O2["Project: continent, total_population"]
         O3["Relation: population"]
     end
 
     %% Physical
-    subgraph Physical Plan
+    subgraph Physical_Plan
         X1["Final HashAggregate"]
         X2["Shuffle: hashpartition(continent)"]
         X3["Partial HashAggregate"]
